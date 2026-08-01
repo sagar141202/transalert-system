@@ -2,6 +2,8 @@ package com.sagar.transalert.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "customers")
@@ -29,5 +31,13 @@ public class Customer extends BaseEntity {
 
     @Column(name = "risk_score")
     private Integer riskScore;
+
+    @OneToMany(
+            mappedBy = "customer",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @Builder.Default
+    private List<Account> accounts = new ArrayList<>();
 
 }
