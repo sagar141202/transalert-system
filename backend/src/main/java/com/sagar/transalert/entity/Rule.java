@@ -3,6 +3,8 @@ package com.sagar.transalert.entity;
 import com.sagar.transalert.enums.RuleType;
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "rules")
@@ -34,4 +36,12 @@ public class Rule extends BaseEntity {
 
     @Column(length = 500)
     private String description;
+
+    @OneToMany(
+            mappedBy = "rule",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @Builder.Default
+    private List<Alert> alerts = new ArrayList<>();
 }

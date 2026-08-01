@@ -7,6 +7,9 @@ import com.sagar.transalert.enums.TransactionType;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -71,4 +74,12 @@ public class Transaction extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
     private Account account;
+
+    @OneToMany(
+            mappedBy = "transaction",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @Builder.Default
+    private List<Alert> alerts = new ArrayList<>();
 }
