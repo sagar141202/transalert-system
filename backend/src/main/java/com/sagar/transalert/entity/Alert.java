@@ -5,6 +5,9 @@ import com.sagar.transalert.enums.RiskLevel;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "alerts")
 @Getter
@@ -35,4 +38,12 @@ public class Alert extends BaseEntity {
 
     @Column(length = 500)
     private String remarks;
+
+    @OneToMany(
+            mappedBy = "alert",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @Builder.Default
+    private List<AlertEvent> events = new ArrayList<>();
 }
