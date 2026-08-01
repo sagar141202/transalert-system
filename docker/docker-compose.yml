@@ -1,0 +1,23 @@
+services:
+  mysql:
+    image: mysql:8.4
+
+    container_name: transalert-mysql
+
+    restart: unless-stopped
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: transalert_db
+      MYSQL_USER: transalert
+      MYSQL_PASSWORD: transalert123
+
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  mysql-data:
